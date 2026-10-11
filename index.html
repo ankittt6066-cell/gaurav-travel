@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101010">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Gaurav Travel | Car Booking</title>
+<style>
+:root{--gold:#e8bd62;--bg:#0d0d0f;--card:#19191d;--muted:#b9b9bf;--line:#333339}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#4a3719 0%,transparent 42%),linear-gradient(160deg,#101014 0%,#080809 70%,#211a0d 100%);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:760px;margin:auto;padding:18px 14px 36px}
+.langbar{display:flex;justify-content:flex-end;margin:0 0 10px}.langbtn{border:1px solid var(--gold);background:#201b11;color:var(--gold);border-radius:999px;padding:9px 14px;font-weight:800}.hero{position:relative;overflow:hidden;border:1px solid #6b542b;border-radius:26px;padding:30px 18px 26px;background:linear-gradient(180deg,#08090acc,#08090aef),url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=85') center 58%/cover;text-align:center;box-shadow:0 18px 48px #000b}.hero:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(110deg,transparent 20%,#e8bd6214 50%,transparent 80%)}.hero>*{position:relative;z-index:1}
+.badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);background:#08080899;border-radius:999px;padding:6px 13px;font-size:10px;letter-spacing:2px;font-weight:900}
+h1{margin:12px 0 4px;font-size:clamp(29px,7vw,43px);letter-spacing:1.5px;color:var(--gold)}
+.tag{margin:0;color:#f4e7c8;font-size:15px}.hero .sub{display:inline-block;background:#08080899;border:1px solid #ffffff22;border-radius:999px;padding:7px 12px}
+.sub{color:var(--muted);font-size:13px;margin:12px 0 0}
+h2{font-size:20px;margin:25px 2px 12px}
+.cars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.car{position:relative;overflow:hidden;text-align:left;border:1px solid #39363a;border-radius:19px;background:linear-gradient(180deg,#242329,#141417);padding:0 0 14px;color:#fff;min-height:190px;cursor:pointer;box-shadow:0 9px 22px #0006;transition:transform .18s,border-color .18s}.car:active{transform:scale(.98)}
+.car.selected{border:2px solid var(--gold);background:#292216;box-shadow:0 0 0 2px #e8bd6230,0 12px 28px #0009}
+.car .carphoto{display:block;width:100%;height:112px;object-fit:cover;background:#28272a}.car .carinfo{display:block;padding:11px 12px 0}.car .emoji{font-size:17px;display:inline-block;margin:0 5px 0 0}
+.car strong{display:inline;font-size:14px;line-height:1.25}.car small{display:block;color:var(--muted);margin-top:6px;font-size:11px}.tick{display:none;position:absolute;right:9px;top:9px;color:#17120a;background:var(--gold);border-radius:50%;width:25px;height:25px;text-align:center;line-height:25px;font-weight:900;z-index:2}
+.car.selected .tick{display:block}
+form{border:1px solid var(--line);border-radius:20px;padding:16px;background:#17171a}
+label{display:block;font-size:13px;color:#e9d9b5;margin:12px 0 6px}
+input,select,textarea{width:100%;border:1px solid #3b3b41;border-radius:11px;padding:13px;background:#0f0f11;color:#fff;font:inherit;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:block;width:100%;border:0;border-radius:13px;padding:15px 12px;margin-top:16px;background:linear-gradient(100deg,#f3d58d,#d6a542);color:#17120a;font-weight:900;font-size:16px;cursor:pointer}
+.mapbtn{display:block;width:100%;border:1px solid #6b552b;border-radius:11px;padding:12px;margin-top:9px;background:#201b11;color:#f2d58f;font-weight:800;font-size:14px;cursor:pointer}
+.callbtn{display:block;text-align:center;text-decoration:none;border:1px solid var(--gold);color:var(--gold);border-radius:13px;padding:13px;margin-top:10px;font-weight:800}
+.trust{margin-top:18px;border-left:3px solid var(--gold);padding:12px 14px;background:#1a1711;border-radius:0 12px 12px 0;color:#f4e7c8}
+.trust strong{display:block;font-size:15px}.trust span{display:block;color:#c8c0b0;font-size:12px;margin-top:4px}
+.installbar{position:fixed;z-index:99;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#09090900,#090909f5 25%);backdrop-filter:blur(10px)}
+.installbtn{display:block;max-width:730px;margin:0 auto;width:100%;border:1px solid #f4d58b;border-radius:999px;padding:14px 18px;background:linear-gradient(100deg,#f7dfaa,#d6a542);color:#17120a;font-size:16px;font-weight:950;box-shadow:0 8px 28px #0009;cursor:pointer}
+body{padding-bottom:88px}
+footer{text-align:center;color:#999;font-size:12px;margin:22px 0 4px}
+.note{color:#a8a8ae;font-size:12px;line-height:1.5;margin-top:10px}
+.status{color:#cfcfcf;font-size:12px;margin-top:7px;line-height:1.4}
+@media(min-width:600px){.cars{grid-template-columns:repeat(3,minmax(0,1fr))}.wrap{padding-top:28px}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.car{padding:12px 10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="langbar"><button class="langbtn" type="button" id="languageToggle">🌐 English</button></div>
+  <header class="hero">
+    <span class="badge">PREMIUM CAB & TOUR SERVICES</span>
+    <h1>GAURAV TRAVEL</h1>
+    <p class="tag">आपका सफर, हमारी जिम्मेदारी!</p>
+    <p class="sub">लोकल • आउटस्टेशन • शादी-विवाह • फैमिली ट्रिप</p>
+  </header>
+
+  <h2>🚘 अपनी गाड़ी चुनें</h2>
+  <div class="cars" id="cars">
+    <button class="car selected" type="button" data-car="Maruti Suzuki Ertiga"><span class="tick">✓</span><img class="carphoto" loading="lazy" src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=82" alt="Family MPV car"><span class="carinfo"><span class="emoji">🚙</span><strong>Maruti Suzuki Ertiga</strong><small>फैमिली ट्रिप एवं शादी</small></span></button>
+    <button class="car" type="button" data-car="Tempo Traveller"><span class="tick">✓</span><img class="carphoto" loading="lazy" src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&fit=crop&w=800&q=82" alt="Passenger travel van"><span class="carinfo"><span class="emoji">🚐</span><strong>Tempo Traveller</strong><small>ग्रुप ट्रैवल एवं टूर</small></span></button>
+    <button class="car" type="button" data-car="Honda Amaze"><span class="tick">✓</span><img class="carphoto" loading="lazy" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=82" alt="Premium sedan car"><span class="carinfo"><span class="emoji">🚘</span><strong>Honda Amaze</strong><small>लोकल एवं आउटस्टेशन</small></span></button>
+    <button class="car" type="button" data-car="Mahindra Bolero"><span class="tick">✓</span><img class="carphoto" loading="lazy" src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=82" alt="SUV vehicle"><span class="carinfo"><span class="emoji">🚙</span><strong>Mahindra Bolero</strong><small>लोकल एवं आउटस्टेशन</small></span></button>
+    <button class="car" type="button" data-car="Datsun GO+"><span class="tick">✓</span><img class="carphoto" loading="lazy" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=82" alt="Compact car"><span class="carinfo"><span class="emoji">🚗</span><strong>Datsun GO+</strong><small>फैमिली एवं लोकल ट्रिप</small></span></button>
+    <button class="car" type="button" data-car="Auto Rickshaw (3-seater)"><span class="tick">✓</span><img class="carphoto" loading="lazy" src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?auto=format&fit=crop&w=800&q=82" alt="City transport"><span class="carinfo"><span class="emoji">🛺</span><strong>ऑटो रिक्शा</strong><small>लोकल यात्रा</small></span></button>
+  </div>
+
+  <h2>📅 बुकिंग की जानकारी</h2>
+  <form id="bookingForm">
+    <label for="trip">यात्रा का प्रकार</label>
+    <select id="trip" required>
+      <option value="सामान्य यात्रा">सामान्य यात्रा</option>
+      <option value="शादी-विवाह बुकिंग">💍 शादी-विवाह / बारात बुकिंग</option>
+      <option value="एयरपोर्ट पिकअप/ड्रॉप">एयरपोर्ट पिकअप/ड्रॉप</option>
+      <option value="रेलवे स्टेशन पिकअप/ड्रॉप">रेलवे स्टेशन पिकअप/ड्रॉप</option>
+      <option value="फैमिली ट्रिप / टूर">फैमिली ट्रिप / टूर</option>
+    </select>
+    <section id="weddingFields" hidden style="margin-top:12px;padding:13px;border:1px solid #80652f;border-radius:14px;background:linear-gradient(145deg,#211a0d,#151416)">
+      <strong style="color:#f0ce80">💍 शादी-विवाह की बुकिंग की जानकारी</strong>
+      <label for="weddingRole">किस काम के लिए गाड़ी चाहिए?</label>
+      <select id="weddingRole"><option>दूल्हा-दुल्हन की गाड़ी</option><option>बारात के लिए</option><option>मेहमानों की पिकअप / ड्रॉप</option><option>शादी में पूरे दिन के लिए</option><option>अन्य</option></select>
+      <div class="grid">
+        <div><label for="weddingDate">शादी की तारीख</label><input id="weddingDate" type="date"></div>
+        <div><label for="weddingCars">कितनी गाड़ियाँ चाहिए?</label><input id="weddingCars" type="number" min="1" max="50" value="1"></div>
+      </div>
+      <label for="weddingVenue">शादी / मैरिज लॉन का नाम व पता</label><input id="weddingVenue" placeholder="मैरिज लॉन, गाँव/शहर">
+      <label for="weddingDuration">कितने समय के लिए?</label><select id="weddingDuration"><option>कुछ घंटे</option><option>आधा दिन</option><option>पूरा दिन</option><option>2 या अधिक दिन</option></select>
+      <label for="weddingGuests">अनुमानित मेहमान / यात्रियों की संख्या</label><input id="weddingGuests" type="number" min="1" placeholder="जैसे 20">
+    </section>
+    <label for="pickup">कहाँ से (Pickup)</label>
+    <input id="pickup" required placeholder="पूरा पता या जगह लिखें">
+    <button class="mapbtn" type="button" id="useLocation">📍 मेरी अभी की लोकेशन इस्तेमाल करें</button>
+    <div class="status" id="locationStatus">सटीक GPS लोकेशन के लिए मोबाइल में Location चालू करें और अनुमति दें।</div>
+    <label for="destination">कहाँ जाना है (Destination)</label>
+    <input id="destination" required placeholder="पूरा पता, जगह या लैंडमार्क लिखें">
+    <button class="mapbtn" type="button" id="showRoute">🗺️ Google Maps में रास्ता देखें</button>
+    <div class="grid">
+      <div><label for="date">यात्रा की तारीख</label><input id="date" type="date" required></div>
+      <div><label for="time">समय</label><input id="time" type="time" required></div>
+    </div>
+    <label for="name">आपका नाम</label><input id="name" required placeholder="अपना नाम लिखें">
+    <label for="phone">आपका मोबाइल नंबर</label><input id="phone" type="tel" inputmode="numeric" pattern="[0-9 +()-]{10,16}" required placeholder="मोबाइल नंबर">
+    <label for="details">अन्य जानकारी (वैकल्पिक)</label><textarea id="details" rows="2" placeholder="जैसे: आने-जाने की बुकिंग, सामान आदि"></textarea>
+    <button class="btn" type="submit">WhatsApp पर बुकिंग भेजें</button>
+    <p class="note">बुकिंग का संदेश WhatsApp में खुलेगा। भेजने से पहले जाँच लें। किराया Gaurav Travel बताएगा; फॉर्म भरना बुकिंग की पुष्टि नहीं है। GPS लोकेशन केवल आपकी अनुमति से ली जाएगी।</p>
+  </form>
+
+  <div class="trust"><strong>🤝 आपका सफर, हमारी जिम्मेदारी!</strong><span>बुकिंग की जानकारी सीधे भेजें • किराया पहले पूछें • बुकिंग की पुष्टि फोन पर लें</span></div>
+  <a class="callbtn" href="tel:9129069898">☎️ कॉल करें: 9129069898</a>
+  <a class="callbtn" href="https://wa.me/917007346876" target="_blank" rel="noopener">💬 WhatsApp बुकिंग: 7007346876</a>
+  <footer>GAURAV TRAVEL · आपकी यात्रा की शुरुआत यहीं से</footer>
+</div>
+<script>
+const translations = {
+  hi: {
+    badge:"PREMIUM CAB & TOUR SERVICES", tagline:"आपका सफर, हमारी जिम्मेदारी!", sub:"लोकल • आउटस्टेशन • शादी-विवाह • फैमिली ट्रिप",
+    carsTitle:"🚘 अपनी गाड़ी चुनें", bookingTitle:"📅 बुकिंग की जानकारी", tripLabel:"यात्रा का प्रकार",
+    tripOptions:["सामान्य यात्रा","शादी-विवाह बुकिंग","एयरपोर्ट पिकअप/ड्रॉप","रेलवे स्टेशन पिकअप/ड्रॉप","फैमिली ट्रिप / टूर"],
+    pickupLabel:"कहाँ से (Pickup)", pickupPlaceholder:"पूरा पता या जगह लिखें", useLocation:"📍 मेरी अभी की लोकेशन इस्तेमाल करें",
+    locationHint:"सटीक GPS लोकेशन के लिए मोबाइल में Location चालू करें और अनुमति दें।", destinationLabel:"कहाँ जाना है (Destination)", destinationPlaceholder:"पूरा पता, जगह या लैंडमार्क लिखें",
+    showRoute:"🗺️ Google Maps में रास्ता देखें", dateLabel:"यात्रा की तारीख", timeLabel:"समय", nameLabel:"आपका नाम", namePlaceholder:"अपना नाम लिखें",
+    phoneLabel:"आपका मोबाइल नंबर", phonePlaceholder:"मोबाइल नंबर", detailsLabel:"अन्य जानकारी (वैकल्पिक)", detailsPlaceholder:"जैसे: आने-जाने की बुकिंग, सामान आदि",
+    submit:"WhatsApp पर बुकिंग भेजें", note:"बुकिंग का संदेश WhatsApp में खुलेगा। भेजने से पहले जाँच लें। किराया Gaurav Travel बताएगा; फॉर्म भरना बुकिंग की पुष्टि नहीं है। GPS लोकेशन केवल आपकी अनुमति से ली जाएगी।",
+    trustTitle:"🤝 आपका सफर, हमारी जिम्मेदारी!", trustText:"बुकिंग की जानकारी सीधे भेजें • किराया पहले पूछें • बुकिंग की पुष्टि फोन पर लें",
+    call:"☎️ कॉल करें: 9129069898", whatsapp:"💬 WhatsApp बुकिंग: 7007346876", footer:"GAURAV TRAVEL · आपकी यात्रा की शुरुआत यहीं से",
+    carSubs:["फैमिली ट्रिप एवं शादी","ग्रुप ट्रैवल एवं टूर","लोकल एवं आउटस्टेशन","लोकल एवं आउटस्टेशन","फैमिली एवं लोकल ट्रिप","लोकल यात्रा"]
+  },
+  en: {
+    badge:"PREMIUM CAB & TOUR SERVICES", tagline:"Your journey, our responsibility!", sub:"Local • Outstation • Weddings • Family Trips",
+    carsTitle:"🚘 Choose Your Vehicle", bookingTitle:"📅 Booking Details", tripLabel:"Trip Type",
+    tripOptions:["General Trip","Wedding Booking","Airport Pickup/Drop","Railway Station Pickup/Drop","Family Trip / Tour"],
+    pickupLabel:"Pickup Location", pickupPlaceholder:"Enter full address or place", useLocation:"📍 Use My Current Location",
+    locationHint:"Turn on Location and allow permission to get accurate GPS location.", destinationLabel:"Destination", destinationPlaceholder:"Enter address, place or landmark",
+    showRoute:"🗺️ View Route in Google Maps", dateLabel:"Travel Date", timeLabel:"Time", nameLabel:"Your Name", namePlaceholder:"Enter your name",
+    phoneLabel:"Your Mobile Number", phonePlaceholder:"Mobile number", detailsLabel:"Additional Details (Optional)", detailsPlaceholder:"E.g. round trip, luggage, etc.",
+    submit:"Send Booking on WhatsApp", note:"Your booking message will open in WhatsApp. Review it before sending. Gaurav Travel will share the fare; submitting this form does not confirm a booking. GPS location is used only with your permission.",
+    trustTitle:"🤝 Your journey, our responsibility!", trustText:"Send booking details directly • Ask the fare first • Confirm booking by phone",
+    call:"☎️ Call: 9129069898", whatsapp:"💬 WhatsApp Booking: 7007346876", footer:"GAURAV TRAVEL · Your journey starts here",
+    carSubs:["Family trips & weddings","Group travel & tours","Local & outstation","Local & outstation","Family & local trips","Local travel"]
+  }
+};
+let currentLanguage = localStorage.getItem('gauravTravelLanguage') || 'hi';
+function setLanguage(lang) {
+  currentLanguage = lang; localStorage.setItem('gauravTravelLanguage', lang);
+  const t = translations[lang]; document.documentElement.lang = lang;
+  document.getElementById('languageToggle').textContent = lang === 'hi' ? '🌐 English' : '🌐 हिंदी';
+  const setText=(selector,value)=>{const el=document.querySelector(selector);if(el)el.textContent=value;};
+  setText('.badge',t.badge); setText('.tag',t.tagline); setText('.sub',t.sub);
+  setText('#cars').previousElementSibling.textContent=t.carsTitle;
+  setText('#bookingForm').previousElementSibling.textContent=t.bookingTitle;
+  const labels={trip:t.tripLabel,pickup:t.pickupLabel,destination:t.destinationLabel,date:t.dateLabel,time:t.timeLabel,name:t.nameLabel,phone:t.phoneLabel,details:t.detailsLabel};
+  Object.entries(labels).forEach(([id,value])=>{const label=document.querySelector('label[for="'+id+'"]');if(label)label.textContent=value;});
+  const trip=document.getElementById('trip'); t.tripOptions.forEach((v,i)=>trip.options[i].textContent=v);
+  document.getElementById('pickup').placeholder=t.pickupPlaceholder; document.getElementById('destination').placeholder=t.destinationPlaceholder;
+  document.getElementById('name').placeholder=t.namePlaceholder; document.getElementById('phone').placeholder=t.phonePlaceholder; document.getElementById('details').placeholder=t.detailsPlaceholder;
+  setText('#useLocation',t.useLocation); setText('#locationStatus',t.locationHint); setText('#showRoute',t.showRoute);
+  setText('#bookingForm .btn',t.submit); setText('#bookingForm .note',t.note);
+  setText('.trust strong',t.trustTitle); setText('.trust span',t.trustText); setText('a[href^="tel:"]',t.call); setText('a[href^="https://wa.me/"]',t.whatsapp); setText('footer',t.footer);
+  document.querySelectorAll('.car small').forEach((el,i)=>el.textContent=t.carSubs[i]);
+}
+document.getElementById('languageToggle').addEventListener('click',()=>setLanguage(currentLanguage==='hi'?'en':'hi'));
+setLanguage(currentLanguage);
+
+let selectedCar = "Maruti Suzuki Ertiga";
+let currentCoords = "";
+const tripSelect = document.getElementById("trip");
+const weddingFields = document.getElementById("weddingFields");
+function toggleWeddingFields(){ weddingFields.hidden = tripSelect.value !== "शादी-विवाह बुकिंग"; }
+tripSelect.addEventListener("change", toggleWeddingFields);
+toggleWeddingFields();
+document.querySelectorAll(".car").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".car").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedCar = btn.dataset.car;
+  });
+});
+const dateInput = document.getElementById("date");
+const now = new Date();
+dateInput.min = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,10);
+
+document.getElementById("useLocation").addEventListener("click", () => {
+  const status = document.getElementById("locationStatus");
+  if (!navigator.geolocation) {
+    status.textContent = "इस ब्राउज़र में GPS उपलब्ध नहीं है। Pickup में पता हाथ से लिखें।";
+    return;
+  }
+  status.textContent = "आपकी अनुमति से लोकेशन खोजी जा रही है…";
+  navigator.geolocation.getCurrentPosition(pos => {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+    currentCoords = lat + "," + lon;
+    document.getElementById("pickup").value = currentCoords;
+    status.textContent = "लोकेशन मिल गई: " + lat.toFixed(6) + ", " + lon.toFixed(6) + " (GPS की सटीकता डिवाइस/सिग्नल पर निर्भर है)";
+  }, err => {
+    status.textContent = "लोकेशन नहीं मिल सकी। मोबाइल Location चालू करें, ब्राउज़र अनुमति दें, या Pickup का पता हाथ से लिखें।";
+  }, {enableHighAccuracy:true, timeout:15000, maximumAge:0});
+});
+
+document.getElementById("showRoute").addEventListener("click", () => {
+  const origin = document.getElementById("pickup").value.trim();
+  const destination = document.getElementById("destination").value.trim();
+  if (!origin || !destination) {
+    alert("कृपया Pickup और Destination दोनों भरें।");
+    return;
+  }
+  const url = "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(origin) + "&destination=" + encodeURIComponent(destination) + "&travelmode=driving";
+  window.open(url, "_blank", "noopener");
+});
+
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const get = id => document.getElementById(id).value.trim();
+  const mapsUrl = "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(get("pickup")) + "&destination=" + encodeURIComponent(get("destination")) + "&travelmode=driving";
+  const msg = [
+    "🚘 *GAURAV TRAVEL - Booking Request*",
+    "",
+    "गाड़ी: " + selectedCar,
+    "यात्रा: " + get("trip"),
+    "पिकअप: " + get("pickup"),
+    "डेस्टिनेशन: " + get("destination"),
+    "Google Maps रास्ता: " + mapsUrl,
+    "तारीख: " + get("date"),
+    "समय: " + get("time"),
+    ...(get("trip") === "शादी-विवाह बुकिंग" ? [
+      "शादी बुकिंग का काम: " + get("weddingRole"),
+      "शादी की तारीख: " + (get("weddingDate") || get("date")),
+      "शादी / मैरिज लॉन: " + get("weddingVenue"),
+      "कितनी गाड़ियाँ: " + get("weddingCars"),
+      "बुकिंग अवधि: " + get("weddingDuration"),
+      "अनुमानित मेहमान: " + get("weddingGuests")
+    ] : []),
+    "नाम: " + get("name"),
+    "मोबाइल: " + get("phone"),
+    get("details") ? "अन्य जानकारी: " + get("details") : "",
+    "",
+    "कृपया किराया और उपलब्धता बताएं।"
+  ].filter(Boolean).join("\n");
+  window.open("https://wa.me/917007346876?text=" + encodeURIComponent(msg), "_blank");
+});
+</script>
+<div class="installbar"><button id="installAppBtn" class="installbtn" type="button">⬇️ Install Gaurav Travel App</button></div>
+<script>
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById('installAppBtn');
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault(); deferredInstallPrompt = event;
+  installBtn.textContent = '⬇️ Install App';
+});
+installBtn.addEventListener('click', async () => {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installBtn.textContent = '✅ App installed';
+  } else if (window.matchMedia('(display-mode: standalone)').matches) {
+    installBtn.textContent = '✅ App already installed';
+  } else {
+    alert('Gaurav Travel इंस्टॉल करने के लिए पहले इस वेबसाइट का असली प्रकाशित Netlify लिंक Chrome में खोलें (Netlify dashboard/preview के अंदर नहीं)। फिर Chrome के ⋮ मेन्यू में “Install app” या “Add to Home screen” चुनें। यदि विकल्प न दिखे तो साइट को HTTPS पर खोलकर रिफ्रेश करें।');
+  }
+});
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+window.addEventListener('appinstalled', () => { installBtn.textContent = '✅ App installed'; });
+</script>
+</body>
+</html>
